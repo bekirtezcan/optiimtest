@@ -27,7 +27,12 @@ public class NoteController {
 
     @PostMapping(value = "/note")
     public Mono<Note> saveNote(@RequestBody Note note) {
-        return noteService.insert(note);
+        return noteService.save(note);
+    }
+
+    @PutMapping(value = "/note")
+    public Mono<Note> editNote(@RequestBody Note note) {
+        return noteService.save(note);
     }
 
     @GetMapping(value = "/notes")

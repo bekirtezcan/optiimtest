@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/email-service/email-service.iml" filepath="$PROJECT_DIR$/email-service/email-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/note-service/note-service.iml" filepath="$PROJECT_DIR$/note-service/note-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/optiimtest.iml" filepath="$PROJECT_DIR$/.idea/optiimtest.iml" />
       <module fileurl="file://$PROJECT_DIR$/user-service/user-service.iml" filepath="$PROJECT_DIR$/user-service/user-service.iml" />

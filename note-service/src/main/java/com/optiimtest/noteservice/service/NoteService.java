@@ -28,8 +28,8 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
-    public Mono<Note> insert(Note note){
-        return noteRepository.insert(note);
+    public Mono<Note> save(Note note){
+        return noteRepository.save(note);
     }
 
     public Mono<Void> deleteAll(){
