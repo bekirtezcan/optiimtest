@@ -2,6 +2,7 @@ package com.optiimtest.emailservice.service;
 
 import com.optiimtest.emailservice.model.Email;
 import com.optiimtest.emailservice.repo.EmailRepository;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -16,8 +17,11 @@ public class EmailService {
 
     private EmailRepository emailRepository;
 
-    public EmailService(EmailRepository emailRepository) {
+    private Environment environment;
+
+    public EmailService(EmailRepository emailRepository, Environment environment) {
         this.emailRepository = emailRepository;
+        this.environment = environment;
     }
 
     public Mono<Email> findById(String id) {
@@ -38,6 +42,13 @@ public class EmailService {
 
     public Mono<Void> deleteById(String id) {
         return emailRepository.deleteById(id);
+    }
+
+    public void sendEmail(Email mail){
+        mail.setFromAddress(environment.getProperty("app.systemMail"));
+        this.insert(mail);
+        System.out.println("Email is sending... " + mail.toLogString());
+        //TODO: send email by using an emailClient
     }
 /*
     Flux<Email> saveAll(List<Email> cities);

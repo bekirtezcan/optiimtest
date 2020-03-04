@@ -60,4 +60,16 @@ public class Email {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public String toLogString() {
+        return new StringBuilder()
+                .append("From:\t" + this.fromAddress)
+                .append("\n")
+                .append("To:\t" + this.toAddress)
+                .append("\n")
+                .append("Subject:\t" + this.subject)
+                .append("\n")
+                .append("Content:\t" + this.content)
+                .toString();
+    }
 }
