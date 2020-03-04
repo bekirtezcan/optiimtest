@@ -1,13 +1,13 @@
-package com.optiimtest.noteservice;
+package com.optiimtest.server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import reactor.core.publisher.Mono;
 
 @SpringBootTest
-class NoteServiceApplicationTests {
+class ServerApplicationTests {
 
     @Test
     void contextLoads() {
     }
+
 }

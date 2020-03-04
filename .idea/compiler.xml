@@ -8,19 +8,25 @@
         <outputRelativeToContentRoot value="true" />
         <module name="note-service" />
         <module name="user-service" />
+        <module name="server" />
+        <module name="demo" />
         <module name="email-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="demo" target="1.8" />
       <module name="email-service" target="1.8" />
       <module name="note-service" target="1.8" />
+      <module name="server" target="1.8" />
       <module name="user-service" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="demo" options="-parameters" />
       <module name="email-service" options="-parameters" />
       <module name="note-service" options="-parameters" />
+      <module name="server" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>

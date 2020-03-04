@@ -23,31 +23,35 @@ public class Note {
         return noteId;
     }
 
-    public void setNoteId(String noteId) {
+    public Note setNoteId(String noteId) {
         this.noteId = noteId;
+        return this;
     }
 
     public String getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(String authorId) {
+    public Note setAuthorId(String authorId) {
         this.authorId = authorId;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public Note setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public Note setContent(String content) {
         this.content = content;
+        return this;
     }
 }
