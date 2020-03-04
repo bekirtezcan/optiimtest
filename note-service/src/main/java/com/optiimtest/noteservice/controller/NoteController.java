@@ -12,6 +12,7 @@ import reactor.core.publisher.Mono;
  * Description :
  */
 @RestController
+@RequestMapping("/")
 public class NoteController {
 
     private NoteService noteService;
@@ -25,18 +26,19 @@ public class NoteController {
         return noteService.findById(id);
     }
 
-    @PostMapping(value = "/note")
+    @PostMapping("/note/")
     public Mono<Note> saveNote(@RequestBody Note note) {
         return noteService.save(note);
     }
 
-    @PutMapping(value = "/note")
+    @PutMapping("/note/")
     public Mono<Note> editNote(@RequestBody Note note) {
         return noteService.save(note);
     }
 
-    @GetMapping(value = "/notes")
+    @GetMapping(value = "/note/list")
     public Flux<Note> getNotes() {
-        return noteService.findAll();
+        return Flux.empty();
+        //return noteService.findAll();
     }
 }

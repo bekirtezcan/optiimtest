@@ -12,6 +12,7 @@ import reactor.core.publisher.Mono;
  * Description :
  */
 @RestController
+@RequestMapping("user")
 public class UserController {
     private UserService userService;
 
@@ -19,17 +20,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/user")
+    @PostMapping("/")
     public Mono<User> saveNote(@RequestBody User user) {
         return userService.insert(user);
     }
 
-    @GetMapping(value = "/user/{id}")
+    @GetMapping(value = "/{id}")
     public Mono<User> getUser(@PathVariable("id") String id) {
         return userService.findById(id);
     }
 
-    @GetMapping(value = "/users")
+    @GetMapping(value = "/list")
     public Flux<User> getUsers() {
         return userService.findAll();
     }
