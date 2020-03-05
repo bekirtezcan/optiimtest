@@ -36,14 +36,8 @@ public class NoteController {
         return noteService.update(note);
     }
 
-    @GetMapping(value = "/list")
-    public Flux<Note> getNotes() {
-        return noteService.findAll();
-    }
-
-    @GetMapping(value = "/hello")
-    public String hello() {
-        return "note servis çalışıyor ama flux çalışmıyor";
-        //return noteService.findAll();
+    @GetMapping(value = "/{userId}/list")
+    public Flux<Note> getNotes(@PathVariable("userId")String userId) {
+        return noteService.getListByAuthorId(userId);
     }
 }

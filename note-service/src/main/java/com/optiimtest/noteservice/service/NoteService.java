@@ -10,8 +10,6 @@ import org.springframework.web.client.RestTemplate;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.Duration;
-
 /**
  * Created By: Bekir Tezcan
  * Created At: 3.03.2020
@@ -36,20 +34,26 @@ public class NoteService {
         return noteRepository.findById(id);
     }
 
-    public Flux<Note> findAll() {
-        return noteRepository.findAll();
+    public Flux<Note> getListByAuthorId(String userId) {
+        return noteRepository.getNoteByAuthorId(userId);
     }
 
     public Mono<Note> create(Note note) {
-        Mono<Note> monoNote = noteRepository.save(note);
-        monoNote.toFuture().thenAccept(savedNote -> sendEmailMessageService.sendEmail(createEmailFromNote(note, true)));
-        return monoNote;
+        return this.save(note, true);
     }
 
     public Mono<Note> update(Note note) {
-        Mono<Note> monoNote = noteRepository.save(note);
-        monoNote.toFuture().thenAccept(savedNote -> sendEmailMessageService.sendEmail(createEmailFromNote(note, false)));
-        return monoNote;
+        return this.save(note, false);
+    }
+
+    private Mono<Note> save(Note note, boolean isNew) {
+        User author = restTemplate.getForObject("http://user-service/" + note.getAuthorId(), User.class);
+        if (author != null) {
+            Mono<Note> monoNote = noteRepository.save(note);
+            monoNote.toFuture().thenAccept(savedNote -> sendEmailMessageService.sendEmail(createEmailFromNote(note, author, isNew)));
+            return monoNote;
+        }
+        return Mono.empty();
     }
 
     public Mono<Void> deleteAll() {
@@ -60,13 +64,9 @@ public class NoteService {
         return noteRepository.deleteById(id);
     }
 
-    private Email createEmailFromNote(Note note, boolean isNew) {
-        User author = restTemplate.getForObject("http://user-service/user/" + note.getAuthorId(), User.class);
-
-        Email mail = new Email().setSubject("\"" + note.getTitle() + "\" is created!")
+    private Email createEmailFromNote(Note note, User author, boolean isNew) {
+        return new Email().setSubject("\"" + note.getTitle() + "\" is created!")
                 .setContent("New note is " + (isNew ? "created" : "updated") + " by this user")
                 .setToAddress(author.getMailAddress());
-
-        return mail;
     }
 }

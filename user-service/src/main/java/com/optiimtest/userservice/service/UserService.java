@@ -2,6 +2,7 @@ package com.optiimtest.userservice.service;
 
 import com.optiimtest.userservice.model.User;
 import com.optiimtest.userservice.repo.IUserRepository;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -17,12 +18,15 @@ import java.time.Duration;
 public class UserService {
     private IUserRepository userRepository;
 
-    public UserService(IUserRepository userRepository) {
+    private Environment environment;
+
+    public UserService(IUserRepository userRepository, Environment environment) {
         this.userRepository = userRepository;
+        this.environment = environment;
     }
-    
+
     public Mono<User> findById(String id){
-        return userRepository.findById(id).delayElement(Duration.ofMillis(10000));
+        return userRepository.findById(id).delayElement(Duration.ofMillis(Long.parseLong(environment.getProperty("com.optiim.test.dbDelay"))));
     }
 
     public Flux<User> findAll(){
