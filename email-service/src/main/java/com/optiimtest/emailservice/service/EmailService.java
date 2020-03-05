@@ -3,6 +3,8 @@ package com.optiimtest.emailservice.service;
 import com.optiimtest.emailservice.model.Email;
 import com.optiimtest.emailservice.repo.EmailRepository;
 import org.springframework.core.env.Environment;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -19,9 +21,12 @@ public class EmailService {
 
     private Environment environment;
 
-    public EmailService(EmailRepository emailRepository, Environment environment) {
+    private JavaMailSender javaMailSender;
+
+    public EmailService(EmailRepository emailRepository, Environment environment, JavaMailSender javaMailSender) {
         this.emailRepository = emailRepository;
         this.environment = environment;
+        this.javaMailSender = javaMailSender;
     }
 
     public Mono<Email> findById(String id) {
@@ -45,9 +50,17 @@ public class EmailService {
     }
 
     public void sendEmail(Email mail){
-        mail.setFromAddress(environment.getProperty("app.systemMail"));
+        mail.setFromAddress(environment.getProperty("com.optiim.test.systemMail"));
         this.create(mail);
         System.out.println("Email is sending... " + mail.toLogString());
-        //TODO: send email by using an emailClient
+
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(mail.getToAddress());
+
+        msg.setSubject(mail.getSubject());
+        msg.setText(mail.getContent());
+        msg.setFrom(mail.getFromAddress());
+
+        javaMailSender.send(msg);
     }
 }

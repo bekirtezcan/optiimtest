@@ -26,7 +26,7 @@ public class SendEmailMessageListener {
         try {
             Email mail = new ObjectMapper().readValue(message, Email.class);
             emailService.sendEmail(mail);
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
