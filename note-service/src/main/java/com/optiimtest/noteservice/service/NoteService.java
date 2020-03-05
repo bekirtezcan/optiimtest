@@ -10,8 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
+import java.time.Duration;
 
 /**
  * Created By: Bekir Tezcan
@@ -41,11 +40,15 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
-    public Mono<Note> save(Note note) {
+    public Mono<Note> create(Note note) {
         Mono<Note> monoNote = noteRepository.save(note);
-        monoNote.toFuture().thenAccept(savedNote -> sendEmailMessageService.sendEmail(createEmailFromNote(note)));
-        //monoNote.doOnSuccess(savedNote -> sendEmailMessageService.sendEmail(createEmailFromNote(savedNote)));
-        //sendEmailMessageService.sendEmail(createEmailFromNote(note));
+        monoNote.toFuture().thenAccept(savedNote -> sendEmailMessageService.sendEmail(createEmailFromNote(note, true)));
+        return monoNote;
+    }
+
+    public Mono<Note> update(Note note) {
+        Mono<Note> monoNote = noteRepository.save(note);
+        monoNote.toFuture().thenAccept(savedNote -> sendEmailMessageService.sendEmail(createEmailFromNote(note, false)));
         return monoNote;
     }
 
@@ -57,11 +60,11 @@ public class NoteService {
         return noteRepository.deleteById(id);
     }
 
-    private Email createEmailFromNote(Note note) {
+    private Email createEmailFromNote(Note note, boolean isNew) {
         User author = restTemplate.getForObject("http://user-service/user/" + note.getAuthorId(), User.class);
 
         Email mail = new Email().setSubject("\"" + note.getTitle() + "\" is created!")
-                .setContent("New note is created by this user")
+                .setContent("New note is " + (isNew ? "created" : "updated") + " by this user")
                 .setToAddress(author.getMailAddress());
 
         return mail;

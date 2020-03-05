@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
  * Description :
  */
 @RestController
-@RequestMapping("/")
+@RequestMapping("note")
 public class NoteController {
 
     private NoteService noteService;
@@ -21,24 +21,29 @@ public class NoteController {
         this.noteService = noteService;
     }
 
-    @GetMapping(value = "/note/{id}")
+    @GetMapping(value = "/{id}")
     public Mono<Note> getNote(@PathVariable("id") String id) {
         return noteService.findById(id);
     }
 
-    @PostMapping("/note/")
+    @PostMapping("/")
     public Mono<Note> saveNote(@RequestBody Note note) {
-        return noteService.save(note);
+        return noteService.create(note);
     }
 
-    @PutMapping("/note/")
+    @PutMapping("/")
     public Mono<Note> editNote(@RequestBody Note note) {
-        return noteService.save(note);
+        return noteService.update(note);
     }
 
-    @GetMapping(value = "/note/list")
+    @GetMapping(value = "/list")
     public Flux<Note> getNotes() {
-        return Flux.empty();
+        return noteService.findAll();
+    }
+
+    @GetMapping(value = "/hello")
+    public String hello() {
+        return "note servis çalışıyor ama flux çalışmıyor";
         //return noteService.findAll();
     }
 }

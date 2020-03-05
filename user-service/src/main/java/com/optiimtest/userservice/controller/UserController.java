@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public Mono<User> saveNote(@RequestBody User user) {
+    public Mono<User> saveUser(@RequestBody User user) {
         return userService.insert(user);
     }
 

@@ -32,8 +32,8 @@ public class EmailService {
         return emailRepository.findAll();
     }
 
-    public Mono<Email> insert(Email Email) {
-        return emailRepository.insert(Email);
+    public Mono<Email> create(Email Email) {
+        return emailRepository.save(Email);
     }
 
     public Mono<Void> deleteAll() {
@@ -46,11 +46,8 @@ public class EmailService {
 
     public void sendEmail(Email mail){
         mail.setFromAddress(environment.getProperty("app.systemMail"));
-        this.insert(mail);
+        this.create(mail);
         System.out.println("Email is sending... " + mail.toLogString());
         //TODO: send email by using an emailClient
     }
-/*
-    Flux<Email> saveAll(List<Email> cities);
-    Mono<Void> deleteAll();*/
 }

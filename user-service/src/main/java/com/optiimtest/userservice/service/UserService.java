@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 /**
  * Created By: Bekir Tezcan
  * Created At: 3.03.2020
@@ -20,7 +22,7 @@ public class UserService {
     }
     
     public Mono<User> findById(String id){
-        return userRepository.findById(id);
+        return userRepository.findById(id).delayElement(Duration.ofMillis(10000));
     }
 
     public Flux<User> findAll(){

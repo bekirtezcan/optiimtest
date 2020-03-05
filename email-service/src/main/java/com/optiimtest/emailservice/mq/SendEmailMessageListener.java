@@ -21,13 +21,8 @@ public class SendEmailMessageListener {
         this.emailService = emailService;
     }
 
-/*    @RabbitListener(queues = "emailQueue")
-    public void receiveDeadQueue(Email message) {
-        emailService.sendEmail(message);
-    }*/
-
     @RabbitListener(queues = "emailQueue")
-    public void receiveDeadQueue(String message) {
+    public void receiveQueueMessage(String message) {
         try {
             Email mail = new ObjectMapper().readValue(message, Email.class);
             emailService.sendEmail(mail);
