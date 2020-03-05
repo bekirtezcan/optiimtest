@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
  * Description :
  */
 @RestController
-@RequestMapping("note")
+@RequestMapping("/")
 public class NoteController {
 
     private NoteService noteService;
