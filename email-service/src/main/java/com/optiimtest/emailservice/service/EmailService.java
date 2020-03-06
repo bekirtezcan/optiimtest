@@ -50,7 +50,7 @@ public class EmailService {
     }
 
     public void sendEmail(Email mail){
-        mail.setFromAddress(environment.getProperty("com.optiim.test.systemMail"));
+        mail.setFromAddress(environment.getProperty("com.optiim.test.systemMail"));//it is redundant since SimpleMailMessage use mial account from properties
         this.create(mail);
         System.out.println("Email is sending... " + mail.toLogString());
 

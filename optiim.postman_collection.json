@@ -1,0 +1,253 @@
+{
+	"info": {
+		"_postman_id": "d9ba3785-9d69-459f-b54b-42fd63ae503a",
+		"name": "optiim",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"admin\",\"password\":\"12345\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8762/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8762",
+					"path": [
+						"auth"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register new User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNTgzNDU2NzUxLCJleHAiOjE1ODM1NDMxNTF9.r0sujoqnlx1zIQhD81qWQSftghNSryBC_O-_jqnaW52o5FtD8gSMB30v4WnLxPFMGaDQbF8a_7QWvFcpd-oD7w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":\"\",\"name\":\"<newUserName>\",\"mailAddress\":\"<validMailAddress>\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8762/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8762",
+					"path": [
+						"user",
+						"register"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "No Auth is required"
+			},
+			"response": []
+		},
+		{
+			"name": "Listing  All Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNTgzNDUxNjQwLCJleHAiOjE1ODM1MzgwNDB9.ua9pnHgkxoiSZNaEPYaOl0Urx7Zo7Xa0-Nmd8E9k_tcfi9CsjgD6zD_7c7dKy437SV6zGPYA6TxtMSjg2TYQMg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8762/user/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8762",
+					"path": [
+						"user",
+						"list"
+					]
+				},
+				"description": "Bearer Token is required"
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Note",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNTgzNDQxMjk3LCJleHAiOjE1ODM1Mjc2OTd9.1NNiy5s3WJsnV1ZylLihJ4Fh3fQdU5N53YaW816vPVRejVcJhhYkAnkHYqCYA4XstgZaUATj21xuGffsY9PlVg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"noteId\": \"\",\r\n    \"authorId\": \"<registeredUserId>\",\r\n    \"title\": \"Title Was Here\",\r\n    \"content\": \"Content was here.\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8762/note/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8762",
+					"path": [
+						"note",
+						""
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Bearer Token is required"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Existing Note",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"noteId\": \"<validNoteId>\",\r\n        \"authorId\": \"<validUserId>\",\r\n        \"title\": \"<UpdatedTitle>\",\r\n        \"content\": \"<UpdatedContent>\"\r\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8762/note/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8762",
+					"path": [
+						"note",
+						""
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Bearer Token is required"
+			},
+			"response": []
+		},
+		{
+			"name": "Get User's All Notes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNTgzNDM2MjYzLCJleHAiOjE1ODM1MjI2NjN9.H8_sVoMC49wDFgLeXNYiMGO6KruJospPztgNg0nzCtA0j0SPDvHkdEeBKtcyv662PoQJdxALsWKhZUjikUbV-A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8762/note/<validUserId>/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8762",
+					"path": [
+						"note",
+						"<validUserId>",
+						"list"
+					]
+				},
+				"description": "Bearer Token is required"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
